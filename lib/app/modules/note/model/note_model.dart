@@ -2,7 +2,7 @@ class Note {
   final String title;
   final DateTime dateTime;
   final String content;
-  final String picturePath;
+  //final String picturePath;
 
-  Note(this.title, this.dateTime, this.content, this.picturePath);
+  Note({required this.title, required this.dateTime, required this.content});//, this.picturePath);
 }
