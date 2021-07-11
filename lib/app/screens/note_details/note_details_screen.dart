@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tp_final/app/modules/note/model/note_model.dart';
 
-class NoteDetails extends StatelessWidget {  
-  const NoteDetails({this.data});
+class NoteDetailsScreen extends StatelessWidget {  
+  const NoteDetailsScreen({this.data});
   final Note? data;
 
   @override

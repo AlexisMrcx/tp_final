@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tp_final/app/modules/note/model/note_model.dart';
 import 'package:tp_final/app/screens/home/widgets/list_note_element.dart';
+import 'package:tp_final/app_routes.dart';
+
 
 class ListNote extends StatefulWidget {
   @override
@@ -17,6 +19,10 @@ class _ListNoteState extends State<ListNote> {
     Note(title: "Note6", dateTime: DateTime.now(), content: "Explication de la note 6"),
   ];
 
+  navigateToDetails({Note? arguments}) {
+    Navigator.pushNamed(context, kNoteDetailsRoute, arguments: arguments);
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +32,9 @@ class _ListNoteState extends State<ListNote> {
       itemCount: noteList.length,
       itemBuilder: (context, position) {
         return InkWell(
-          onTap: null,
+          onTap: () => navigateToDetails(
+            arguments: noteList[position]
+          ),
           child: Row(
             children: [
               ListNoteElement(element : noteList[position])
