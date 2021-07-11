@@ -25,9 +25,16 @@ class ListNoteElement extends StatelessWidget {
                   '${element.dateTime.day} - ${element.dateTime.month + 1} - ${element.dateTime.year}',
                   style: TextStyle(fontSize: 12, color: Colors.grey),
                 ),
-                Text(
-                  element.content,
-                  style: TextStyle(fontSize: 10),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10,bottom: 10),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width - 100,
+                    child: Text(
+                      element.content,
+                      style: TextStyle(fontSize: 10),
+                      maxLines: null,
+                    ),
+                  ),
                 ),
               ],
             ),

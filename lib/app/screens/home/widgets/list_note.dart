@@ -9,7 +9,7 @@ class ListNote extends StatefulWidget {
 
 class _ListNoteState extends State<ListNote> {
   final List<Note> noteList = [
-    Note(title: "Note1", dateTime: DateTime.now(), content: "Explication de la note 1"),
+    Note(title: "Note1", dateTime: DateTime.now(), content: "Explication de la note 1 / Explication de la note 1 / Explication de la note 1 / Explication de la note 1 / Explication de la note 1 / Explication de la note 1 / Explication de la note 1 / Explication de la note 1 / Explication de la note 1 / Explication de la note 1 / Explication de la note 1 / Explication de la note 1 / "),
     Note(title: "Note2", dateTime: DateTime.now(), content: "Explication de la note 2"),
     Note(title: "Note3", dateTime: DateTime.now(), content: "Explication de la note 3"),
     Note(title: "Note4", dateTime: DateTime.now(), content: "Explication de la note 4"),
@@ -20,7 +20,7 @@ class _ListNoteState extends State<ListNote> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    return ListView.separated(
       shrinkWrap: true,
       physics: ScrollPhysics(),
       itemCount: noteList.length,
@@ -29,12 +29,12 @@ class _ListNoteState extends State<ListNote> {
           onTap: null,
           child: Row(
             children: [
-              Text((position + 1).toString()),
               ListNoteElement(element : noteList[position])
             ],
           ),
         );
       },
+      separatorBuilder: (context, index) => Divider(thickness: 5, color: Colors.black),
     );
   }
 }
