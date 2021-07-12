@@ -9,7 +9,6 @@ const kNoteDetailsRoute = '/note_details';
 
 final Map<String, WidgetBuilder> kRoutes = {
   kHomeRoute: (_)=>HomeScreen(),
-  kNoteDetailsRoute: (_)=>NoteDetailsScreen()
 };
 
 onGenerateRoute(settings){
