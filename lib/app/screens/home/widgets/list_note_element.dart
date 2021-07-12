@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:tp_final/app/modules/note/model/note_model.dart';
 
@@ -36,6 +38,7 @@ class ListNoteElement extends StatelessWidget {
                     ),
                   ),
                 ),
+                Image.file(File(element.picturePath),height: 100, width:  MediaQuery.of(context).size.width - 100,)
               ],
             ),
           ],

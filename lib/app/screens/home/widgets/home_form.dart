@@ -2,6 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
+import 'package:tp_final/app/modules/note/data/repository/note_repository.dart';
+import 'package:tp_final/app/modules/note/model/note_model.dart';
+import 'package:tp_final/main.dart';
 
 class HomeForm extends StatefulWidget {
   @override
@@ -12,6 +15,9 @@ class _HomeFormState extends State<HomeForm> {
   CameraController? controller; 
   List<CameraDescription> cameras = []; 
   XFile? capturedImage;
+  NoteRepository noteRepository = NoteRepository();
+  final _titreController = TextEditingController();
+  final _contenuController = TextEditingController();
 
   @override
   void initState() {
@@ -43,6 +49,22 @@ class _HomeFormState extends State<HomeForm> {
     setState(() {});
   }
 
+  saveToDb(String titre, String content) async{
+    Note newNote = Note(
+      content: content,
+      title: titre,
+      dateTime: DateTime.now(),
+      picturePath: capturedImage!.path);
+
+    noteRepository.saveNote(newNote);
+
+    _titreController.text="";
+    _contenuController.text="";
+
+   dynamic result = await Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => MyApp(
+                  )));
+  }
   
 
   @override
@@ -72,6 +94,7 @@ class _HomeFormState extends State<HomeForm> {
                          Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: TextFormField(
+                            controller: _titreController,
                             decoration: InputDecoration(
                               labelText: "Titre",
                               border: OutlineInputBorder(
@@ -83,6 +106,7 @@ class _HomeFormState extends State<HomeForm> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: TextFormField(
+                            controller: _contenuController,
                             keyboardType: TextInputType.multiline,
                             minLines: 5,
                             maxLines: null,
@@ -130,7 +154,7 @@ class _HomeFormState extends State<HomeForm> {
                           child: SizedBox(
                             width: double.infinity,
                             child: TextButton(
-                              onPressed: null,                            
+                              onPressed: () => saveToDb(_titreController.text, _contenuController.text),                            
                               style: TextButton.styleFrom(backgroundColor: Colors.grey),              
                               child: Text(
                                 "AJOUTER MA NOTE",

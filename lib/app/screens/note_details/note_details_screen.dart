@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:tp_final/app/modules/note/model/note_model.dart';
 
@@ -40,7 +42,8 @@ class NoteDetailsScreen extends StatelessWidget {
                           data.content.toString(),
                           maxLines: null,),
                       ),
-                    )
+                    ),
+                    Image.file(File(data.picturePath), height: 100, width: MediaQuery.of(context).size.width - 100,)
                   ],
                 )
               ],
