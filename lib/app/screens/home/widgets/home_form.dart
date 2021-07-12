@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:camera/camera.dart';
 
 class HomeForm extends StatefulWidget {
   @override
@@ -6,6 +9,42 @@ class HomeForm extends StatefulWidget {
 }
 
 class _HomeFormState extends State<HomeForm> {
+  CameraController? controller; 
+  List<CameraDescription> cameras = []; 
+  XFile? capturedImage;
+
+  @override
+  void initState() {
+    super.initState();
+    loadCameras();       
+  }
+
+  loadCameras() async {
+    cameras = await availableCameras();
+    if(cameras.length > 0){
+      controller = CameraController(cameras[0], ResolutionPreset.max);
+      controller!.initialize().then((_) {
+      if (!mounted) {
+        return;
+      }
+      setState(() {});
+    });
+    }   
+  }
+
+  @override
+  void dispose() {
+    controller?.dispose();
+    super.dispose();
+  }
+
+  capturePicture() async {
+    capturedImage = await controller!.takePicture();
+    setState(() {});
+  }
+
+  
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -55,16 +94,36 @@ class _HomeFormState extends State<HomeForm> {
                             ),
                           )
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: OutlinedButton(
-                            onPressed: null,
-                            style: TextButton.styleFrom(backgroundColor: Colors.grey),
-                            child: Text(
-                              "Ajouter une image",
-                              style: TextStyle(color: Colors.white)
+                        Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: OutlinedButton(
+                                onPressed: () => showDialog(
+                                  context: context, 
+                                  builder: (context) => SimpleDialog(
+                                    children:[
+                                      CameraPreview(controller!),
+                                      OutlinedButton(
+                                        onPressed: () => capturePicture(),                      
+                                        child: Text('capturer une image'),
+                                      ),
+                                    ],
+                                  )),
+                                style: TextButton.styleFrom(backgroundColor: Colors.grey),
+                                child: Text(
+                                  "Ajouter une image",
+                                  style: TextStyle(color: Colors.white)
+                                ),
+                              ),
                             ),
-                          ),
+                            Padding(
+                              padding: const EdgeInsets.all(8),
+                              child: capturedImage==null 
+                              ? Container()
+                              : Image.file(File(capturedImage!.path), height: 50, fit: BoxFit.cover,),
+                            )
+                          ],
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
