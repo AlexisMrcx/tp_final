@@ -18,22 +18,32 @@ class NoteDetailsScreen extends StatelessWidget {
         backgroundColor: Colors.white,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
-          child: Center(
-            child: Container(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Column(
-                    children: [
-                      Text(data.title.toString()),
-                      /*Text(data!.dateTime.toString()),
-                      Text(data!.content.toString())*/
-                    ],
-                  )
-                ],
-              ),
+        padding: const EdgeInsets.all(20),
+          child: Container(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      data.title.toString(),
+                      style: TextStyle(color: Colors.black, fontSize: 30, fontWeight: FontWeight.bold),),
+                    Text(
+                      '${data.dateTime.day} - ${data.dateTime.month + 1} - ${data.dateTime.year}',
+                      style: TextStyle(color: Colors.grey, fontSize: 15),),
+                    Container(
+                      width: MediaQuery.of(context).size.width - 100,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 80),
+                        child: Text(
+                          data.content.toString(),
+                          maxLines: null,),
+                      ),
+                    )
+                  ],
+                )
+              ],
             ),
           ),
       ),
